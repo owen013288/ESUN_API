@@ -1,4 +1,5 @@
-﻿using ESUN_API.Dto.Rq;
+﻿using AutoMapper;
+using ESUN_API.Dto.Rq;
 using ESUN_API.Dto.Rs;
 using ESUN_API.Models;
 using Microsoft.Data.SqlClient;
@@ -11,12 +12,14 @@ namespace ESUN_API.Service
     /// </summary>
     public class RevenueService : BaseService
     {
-        private readonly ESUNContextExtend _context;
         private readonly ILogger<RevenueService> _logger;
+        private readonly IMapper _mapper;
+        private readonly ESUNContextExtend _context;
 
-        public RevenueService(ILogger<RevenueService> logger, ESUNContextExtend context)
+        public RevenueService(ILogger<RevenueService> logger, IMapper mapper, ESUNContextExtend context)
         {
             _logger = logger;
+            _mapper = mapper;
             _context = context;
         }
 
@@ -29,9 +32,12 @@ namespace ESUN_API.Service
             try
             {
                 var sql = @"EXEC spGetData";
+
                 var result = await _context.RevenueData.FromSqlRaw(sql).ToListAsync();
 
-                return ReturnDataRs(StatusCodes.Status200OK, "成功！", result, "成功！");
+                var autoMapperResult = result.Select(x => _mapper.Map<RevenueRs>(x)).ToList();
+
+                return ReturnDataRs(StatusCodes.Status200OK, "成功！", autoMapperResult, "成功！");
             }
             catch (Exception ex)
             {
@@ -89,9 +95,7 @@ EXEC spInsertData
                 var result = await _context.Database.ExecuteSqlRawAsync(sql, parameters.ToArray());
 
                 if (result > 0)
-                {
                     return ReturnDataRs(StatusCodes.Status204NoContent, "儲存成功！", "", "儲存成功！");
-                }
 
                 return ReturnDataRs(StatusCodes.Status500InternalServerError, "儲存失敗！", "", "儲存失敗！");
             }
