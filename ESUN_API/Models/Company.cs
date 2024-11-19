@@ -23,10 +23,6 @@ namespace ESUN_API.Models
         /// </summary>
         public Guid IndustryId { get; set; }
         /// <summary>
-        /// 建立者
-        /// </summary>
-        public string Createtor { get; set; } = null!;
-        /// <summary>
         /// 建立時間
         /// </summary>
         public DateTime CreateTime { get; set; }

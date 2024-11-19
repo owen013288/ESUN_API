@@ -19,10 +19,6 @@ namespace ESUN_API.Models
         /// </summary>
         public string Name { get; set; } = null!;
         /// <summary>
-        /// 建立者
-        /// </summary>
-        public string Createtor { get; set; } = null!;
-        /// <summary>
         /// 建立時間
         /// </summary>
         public DateTime CreateTime { get; set; }

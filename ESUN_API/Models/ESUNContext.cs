@@ -29,7 +29,6 @@ namespace ESUN_API.Models
                 entity.Property(e => e.CompanyCode)
                     .HasMaxLength(6)
                     .IsUnicode(false)
-                    .IsFixedLength()
                     .HasComment("公司代號");
 
                 entity.Property(e => e.CompanyName)
@@ -40,11 +39,6 @@ namespace ESUN_API.Models
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())")
                     .HasComment("建立時間");
-
-                entity.Property(e => e.Createtor)
-                    .HasMaxLength(50)
-                    .HasDefaultValueSql("('admin')")
-                    .HasComment("建立者");
 
                 entity.Property(e => e.IndustryId).HasComment("產業別");
 
@@ -70,11 +64,6 @@ namespace ESUN_API.Models
                     .HasDefaultValueSql("(getdate())")
                     .HasComment("建立時間");
 
-                entity.Property(e => e.Createtor)
-                    .HasMaxLength(50)
-                    .HasDefaultValueSql("('admin')")
-                    .HasComment("建立者");
-
                 entity.Property(e => e.ModifyTime)
                     .HasColumnType("datetime")
                     .HasComment("修改時間");
@@ -93,7 +82,6 @@ namespace ESUN_API.Models
                 entity.Property(e => e.CompanyCode)
                     .HasMaxLength(6)
                     .IsUnicode(false)
-                    .IsFixedLength()
                     .HasComment("公司代號");
 
                 entity.Property(e => e.CreateTime)
@@ -101,12 +89,7 @@ namespace ESUN_API.Models
                     .HasDefaultValueSql("(getdate())")
                     .HasComment("建立時間");
 
-                entity.Property(e => e.Createtor)
-                    .HasMaxLength(50)
-                    .HasDefaultValueSql("('Admin')")
-                    .HasComment("建立者");
-
-                entity.Property(e => e.CumulativeRevenue_CurrentMonth2).HasComment("累計營業收入-當月累計營收");
+                entity.Property(e => e.CumulativeRevenue_CurrentMonth).HasComment("累計營業收入-當月累計營收");
 
                 entity.Property(e => e.CumulativeRevenue_LastYear).HasComment("累計營業收入-去年累計營收");
 
@@ -117,6 +100,12 @@ namespace ESUN_API.Models
                 entity.Property(e => e.ModifyTime)
                     .HasColumnType("datetime")
                     .HasComment("修改時間");
+
+                entity.Property(e => e.PublishDate)
+                    .HasMaxLength(7)
+                    .IsUnicode(false)
+                    .IsFixedLength()
+                    .HasComment("出表日期(民國_月_日)");
 
                 entity.Property(e => e.Revenue_CurrentMonth).HasComment("營業收入-當月營收");
 

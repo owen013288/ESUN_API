@@ -10,6 +10,10 @@ namespace ESUN_API.Models
         /// </summary>
         public Guid Id { get; set; }
         /// <summary>
+        /// 出表日期(民國_月_日)
+        /// </summary>
+        public string PublishDate { get; set; } = null!;
+        /// <summary>
         /// 資料年月
         /// </summary>
         public string Year_Date { get; set; } = null!;
@@ -40,7 +44,7 @@ namespace ESUN_API.Models
         /// <summary>
         /// 累計營業收入-當月累計營收
         /// </summary>
-        public long? CumulativeRevenue_CurrentMonth2 { get; set; }
+        public long? CumulativeRevenue_CurrentMonth { get; set; }
         /// <summary>
         /// 累計營業收入-去年累計營收
         /// </summary>
@@ -53,10 +57,6 @@ namespace ESUN_API.Models
         /// 備註
         /// </summary>
         public string? Memo { get; set; }
-        /// <summary>
-        /// 建立者
-        /// </summary>
-        public string Createtor { get; set; } = null!;
         /// <summary>
         /// 建立時間
         /// </summary>
