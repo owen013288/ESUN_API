@@ -1,5 +1,8 @@
 ﻿namespace ESUN_API.Dto.Rs
 {
+    /// <summary>
+    /// 收入Rs
+    /// </summary>
     public class RevenueRs
     {
         /// <summary>

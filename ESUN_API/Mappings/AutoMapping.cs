@@ -4,6 +4,9 @@ using Profile = AutoMapper.Profile;
 
 namespace ESUN_API.Mappings
 {
+    /// <summary>
+    /// AutoMapper
+    /// </summary>
     public class AutoMapping : Profile
     {
         public AutoMapping()

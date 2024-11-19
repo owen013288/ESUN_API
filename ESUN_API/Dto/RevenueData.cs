@@ -1,5 +1,8 @@
 ﻿namespace ESUN_API.Dto
 {
+    /// <summary>
+    /// 收入資料
+    /// </summary>
     public class RevenueData
     {
         /// <summary>
