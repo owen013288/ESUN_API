@@ -17,7 +17,7 @@ namespace ESUN_API.Models
         /// <summary>
         /// 產業名稱
         /// </summary>
-        public string Name { get; set; } = null!;
+        public string IndustryName { get; set; } = null!;
         /// <summary>
         /// 建立時間
         /// </summary>
