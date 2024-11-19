@@ -29,8 +29,6 @@ namespace ESUN_API.Controllers
         {
             try
             {
-                var s = 0;
-                var ss = 5 / s;
                 var result = await _revenueService.Get();
 
                 return ActionReturn(result);
