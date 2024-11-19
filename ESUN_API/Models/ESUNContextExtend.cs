@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ESUN_API.Models
 {
+    /// <summary>
+    /// 連線擴充
+    /// </summary>
     public partial class ESUNContextExtend : ESUNContext
     {
         public ESUNContextExtend(DbContextOptions<ESUNContext> options)
