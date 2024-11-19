@@ -1,6 +1,7 @@
 ﻿using ESUN_API.Dto.Rq;
 using ESUN_API.Dto.Rs;
 using ESUN_API.Models;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace ESUN_API.Service
@@ -48,39 +49,44 @@ namespace ESUN_API.Service
         {
             try
             {
-                var sql = @"EXEC spInsertData
-@CompanyCode = {0}
-, @CompanyName = {1}
-, @IndustryName = {2}
-, @PublishDate = {3}
-, @Year_Date = {4}
-, @Revenue_CurrentMonth = {5}
-, @Revenue_PreviousMonth = {6}
-, @Revenue_SameMonthLastYear = {7}
-, @Revenue_MonthOverMonthGrowthPct = {8}
-, @Revenue_YearOverYearGrowthPct = {9}
-, @CumulativeRevenue_CurrentMonth = {10}
-, @CumulativeRevenue_LastYear = {11}
-, @CumulativeRevenue_PeriodOverPeriodGrowthPct = {12}
-, @Memo = {13}
+                var sql = @"
+EXEC spInsertData
+    @CompanyCode = @CompanyCode
+    , @CompanyName = @CompanyName
+    , @IndustryName = @IndustryName
+    , @PublishDate = @PublishDate
+    , @Year_Date = @Year_Date
+    , @Revenue_CurrentMonth = @Revenue_CurrentMonth
+    , @Revenue_PreviousMonth = @Revenue_PreviousMonth
+    , @Revenue_SameMonthLastYear = @Revenue_SameMonthLastYear
+    , @Revenue_MonthOverMonthGrowthPct = @Revenue_MonthOverMonthGrowthPct
+    , @Revenue_YearOverYearGrowthPct = @Revenue_YearOverYearGrowthPct
+    , @CumulativeRevenue_CurrentMonth = @CumulativeRevenue_CurrentMonth
+    , @CumulativeRevenue_LastYear = @CumulativeRevenue_LastYear
+    , @CumulativeRevenue_PeriodOverPeriodGrowthPct = @CumulativeRevenue_PeriodOverPeriodGrowthPct
+    , @Memo = @Memo
 ";
 
-            var result = await _context.Database.ExecuteSqlRawAsync(sql,
-                rq.CompanyCode
-                , rq.CompanyName
-                , rq.IndustryName
-                , rq.PublishDate
-                , rq.Year_Date
-                , rq.Revenue_CurrentMonth
-                , rq.Revenue_PreviousMonth
-                , rq.Revenue_SameMonthLastYear
-                , rq.Revenue_MonthOverMonthGrowthPct
-                , rq.Revenue_YearOverYearGrowthPct
-                , rq.CumulativeRevenue_CurrentMonth
-                , rq.CumulativeRevenue_LastYear
-                , rq.CumulativeRevenue_PeriodOverPeriodGrowthPct
-                , rq.Memo
-                );
+                var parameters = new List<SqlParameter>
+                {
+                    new SqlParameter("@CompanyCode", rq.CompanyCode),
+                    new SqlParameter("@CompanyName", rq.CompanyName),
+                    new SqlParameter("@IndustryName", rq.IndustryName),
+                    new SqlParameter("@PublishDate", rq.PublishDate),
+                    new SqlParameter("@Year_Date", rq.Year_Date),
+                    new SqlParameter("@Revenue_CurrentMonth", rq.Revenue_CurrentMonth),
+                    new SqlParameter("@Revenue_PreviousMonth", rq.Revenue_PreviousMonth),
+                    new SqlParameter("@Revenue_SameMonthLastYear", rq.Revenue_SameMonthLastYear),
+                    new SqlParameter("@Revenue_MonthOverMonthGrowthPct", rq.Revenue_MonthOverMonthGrowthPct),
+                    new SqlParameter("@Revenue_YearOverYearGrowthPct", rq.Revenue_YearOverYearGrowthPct),
+                    new SqlParameter("@CumulativeRevenue_CurrentMonth", rq.CumulativeRevenue_CurrentMonth),
+                    new SqlParameter("@CumulativeRevenue_LastYear", rq.CumulativeRevenue_LastYear),
+                    new SqlParameter("@CumulativeRevenue_PeriodOverPeriodGrowthPct", rq.CumulativeRevenue_PeriodOverPeriodGrowthPct),
+                    new SqlParameter("@Memo", rq.Memo)
+                };
+
+
+                var result = await _context.Database.ExecuteSqlRawAsync(sql, parameters.ToArray());
 
                 if (result > 0)
                 {
