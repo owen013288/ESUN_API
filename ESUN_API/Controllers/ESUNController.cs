@@ -1,5 +1,7 @@
+using ESUN_API.Dto.Handler;
 using ESUN_API.Dto.Rq;
 using ESUN_API.Service;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ESUN_API.Controllers
@@ -13,11 +15,13 @@ namespace ESUN_API.Controllers
     {
         private readonly RevenueService _revenueService;
         private readonly ILogger<ESUNController> _logger;
+        private readonly IMediator _mediator;
 
-        public ESUNController(ILogger<ESUNController> logger, RevenueService revenueService)
+        public ESUNController(ILogger<ESUNController> logger, RevenueService revenueService, IMediator mediator)
         {
             _logger = logger;
             _revenueService = revenueService;
+            _mediator = mediator;
         }
 
         /// <summary>
@@ -29,7 +33,7 @@ namespace ESUN_API.Controllers
         {
             try
             {
-                var result = await _revenueService.Get();
+                var result = await _mediator.Send(new GetRevenueQuery());
 
                 return ActionReturn(result);
             }
