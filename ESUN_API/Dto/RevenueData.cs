@@ -74,5 +74,10 @@
         /// 備註
         /// </summary>
         public string? Memo { get; set; }
+
+        /// <summary>
+        /// 總數量
+        /// </summary>
+        public int Total { get; set; }
     }
 }

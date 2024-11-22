@@ -1,5 +1,5 @@
-using ESUN_API.Dto.Handler;
 using ESUN_API.Dto.Rq;
+using ESUN_API.Handler;
 using ESUN_API.Service;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -29,11 +29,11 @@ namespace ESUN_API.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(int page, int pageSize)
         {
             try
             {
-                var result = await _mediator.Send(new GetRevenueQuery());
+                var result = await _mediator.Send(new GetRevenueQuery(page, pageSize));
 
                 return ActionReturn(result);
             }

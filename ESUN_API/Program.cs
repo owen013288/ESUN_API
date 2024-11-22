@@ -40,8 +40,25 @@ builder.Services.AddScoped<RevenueService>();
 builder.Services.AddScoped<ESUNContextExtend>();
 #endregion
 
+#region CORS
+// 新增 CORS 服務
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        builder =>
+        {
+            // 全部開放
+            builder.AllowAnyOrigin()
+                   .AllowAnyMethod() // 允許的 HTTP 方法
+                   .AllowAnyHeader(); // 允許的 HTTP 頭
+        });
+});
+#endregion
+
+#region MediatR
 // 註冊 MediatR
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
+#endregion
 
 var app = builder.Build();
 
@@ -54,6 +71,8 @@ if (app.Environment.IsDevelopment())
 app.UseMiddleware<ErrorLoggingMiddleware>();
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowAll"); // 使用 CORS 策略
 
 app.UseAuthorization();
 

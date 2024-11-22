@@ -5,7 +5,7 @@ using ESUN_API.Service;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace ESUN_API.Dto.Handler
+namespace ESUN_API.Handler
 {
     // 實現處理請求的邏輯
     public class GetRevenueQueryHandler : BaseService, IRequestHandler<GetRevenueQuery, DataRs>
@@ -25,7 +25,7 @@ namespace ESUN_API.Dto.Handler
         {
             try
             {
-                var sql = @"EXEC spGetData";
+                var sql = $"EXEC spGetData {request._page}, {request._pageSize}";
 
                 var result = _context.RevenueData.FromSqlRaw(sql).ToList();
 
